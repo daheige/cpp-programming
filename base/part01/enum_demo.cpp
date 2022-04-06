@@ -1,11 +1,14 @@
 #include <iostream>
+
 using namespace std;
 
-enum class Color {red,blue,green};
+enum class Color {
+    red, blue, green
+};
 
-int main(){
+int main () {
     Color c = Color::red;
-    switch(c){
+    switch (c) {
         case Color::red:
             cout << "c is red" << endl;
             break;

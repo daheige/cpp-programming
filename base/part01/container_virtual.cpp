@@ -1,17 +1,18 @@
 #include <iostream>
 #include <list>
+
 using namespace std;
 
-class Vector{
+class Vector {
 private:
-    double* elem;
+    double *elem;
     int sz;
 public:
     // 构造函数
     // double arr[] c语言风格的数组
-    Vector(double arr[],int s) : elem{new double[s]},sz{s}{
-        for(auto i = 0;i != s;++i){
-            elem[i]= arr[i]; // 初始化elem 指针数组
+    Vector (double arr[], int s) : elem{new double[s]}, sz{s} {
+        for (auto i = 0; i != s; ++i) {
+            elem[i] = arr[i]; // 初始化elem 指针数组
         }
     }
 
@@ -19,17 +20,20 @@ public:
     // 当类的实例不再使用的时候，就会自动调用这个析构函数
     // 在析构函数中释放资源的技术称作为资源获取即初始化 RAII
     // 避免了我们裸new操作的风险，同时避免了裸delete操作，避免了资源泄漏的风险
-    ~Vector() {
+    ~Vector () {
         cout << "~ action run" << endl;
         delete[] elem;
     }
-    double& operator[](int i);
-    int size() const;
+
+    double &operator[] (int i);
+
+    int size () const;
 };
 
 
-double& Vector::operator[](int i){ return elem[i];}
-int Vector::size() const {
+double &Vector::operator[] (int i) { return elem[i]; }
+
+int Vector::size () const {
     return sz;
 }
 
@@ -75,7 +79,7 @@ void use (Container &c) {
 class VectorContainer : public Container {
     Vector v; // 这里是自定义的类型vector实例来实现抽象接口
 public:
-    VectorContainer (double s[],int sz) : v(s,sz) {} // 含有s个元素的Vector
+    VectorContainer (double s[], int sz) : v(s, sz) {} // 含有s个元素的Vector
     ~VectorContainer () {}
 
     double &operator[] (int i) { return v[i]; }
@@ -84,20 +88,24 @@ public:
 };
 
 // 通过list实现Container抽象接口
-class ListContainer : public Container{
+class ListContainer : public Container {
     std::list<double> Id;
 public:
-    ListContainer(){}
-    ListContainer(initializer_list<double> il) : Id{il}{}
-    ~ListContainer(){}
-    double& operator[](int i);
-    int size() const { return Id.size();}
+    ListContainer () {}
+
+    ListContainer (initializer_list<double> il) : Id{il} {}
+
+    ~ListContainer () {}
+
+    double &operator[] (int i);
+
+    int size () const { return Id.size(); }
 };
 
 // ListContainer 实现操作符[]重载
-double& ListContainer::operator[](int i){
-    for (auto &x:Id){
-        if (i == 0){
+double &ListContainer::operator[] (int i) {
+    for (auto &x: Id) {
+        if (i == 0) {
             return x;
         }
 
@@ -108,12 +116,12 @@ double& ListContainer::operator[](int i){
 }
 
 void g () {
-    double s[] = {1,2,3};
-    VectorContainer vc(s,3);
+    double s[] = {1, 2, 3};
+    VectorContainer vc(s, 3);
     use(vc);
 
     cout << "list container" << endl;
-    ListContainer lc = {1,2,3,4,5};
+    ListContainer lc = {1, 2, 3, 4, 5};
     use(lc);
 }
 

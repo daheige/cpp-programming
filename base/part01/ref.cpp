@@ -1,8 +1,9 @@
 #include <iostream>
+
 using namespace std;
 
-int main(){
-    int* x = nullptr;
+int main () {
+    int *x = nullptr;
     int m = 10;
     x = &m; // x是一个int指针，指向m所在内存的地址
 
